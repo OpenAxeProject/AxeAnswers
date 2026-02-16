@@ -1,0 +1,200 @@
+:root {
+    --bg-color: #0f172a;   
+    --card-bg: #1e293b;    
+    --text-main: #f1f5f9;  
+    --text-muted: #94a3b8; 
+    --accent: #f59e0b;     
+    --accent-hover: #d97706;
+    --border: #334155;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 20px;
+    overflow-x: hidden; 
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.search-wrapper {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    font-size: 1rem; /* 16px prevents iOS zoom on focus, keeps things nice and clean */
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none; /* Removes default iOS styling since it's a pain in the butt */
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent);
+}
+
+.category {
+    margin-bottom: 30px;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+    color: var(--text-muted);
+}
+
+details {
+    background-color: var(--card-bg);
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+details:hover {
+    border-color: var(--text-muted);
+}
+
+summary {
+    padding: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    list-style: none;
+    position: relative;
+    padding-right: 50px;
+    
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: bold;
+    line-height: 1;
+}
+
+details[open] summary::after {
+    content: '-';
+}
+
+details[open] {
+    border-color: var(--accent);
+}
+
+.answer {
+    padding: 0 20px 20px 20px;
+    color: #cbd5e1;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.answer code {
+    background-color: #0f172a;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--accent);
+    
+    word-break: break-word; 
+    white-space: pre-wrap; 
+}
+
+.answer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    margin-top: 60px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding-bottom: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    header {
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .category-title {
+        font-size: 1.3rem;
+    }
+
+    summary {
+        font-size: 1rem;
+        padding: 15px;
+        padding-right: 45px;
+    }
+
+    summary::after {
+        right: 15px;
+        top: 15px;
+    }
+
+    .answer {
+        padding: 0 15px 15px 15px;
+    }
+}
+

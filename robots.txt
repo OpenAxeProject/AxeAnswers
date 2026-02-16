@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: questions.json
+Disallow: *.css
+Disallow: *.script

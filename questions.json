@@ -1,0 +1,222 @@
+[
+  {
+    "category": "Hardware & Assembly",
+    "items": [
+      {
+        "question": "What power supply (PSU) should I use?",
+        "answer": "Most Bitaxe versions (like the Ultra or Supra) require a 5V power supply via a barrel jack (2.1mm/5.5mm). It is highly recommended to use a high-quality <strong>5V 4A (20W)</strong> or higher PSU to prevent instability."
+      },
+      {
+        "question": "Can I use a standard USB phone charger?",
+        "answer": "<strong>No.</strong> Most standard phone chargers only output 1A or 2A. The Bitaxe requires up to <strong>4A</strong> at peak load during startup and hashing. Using a weak charger will likely cause boot loops, brownouts, or immediate crashes."
+      },
+      {
+        "question": "Why is my Bitaxe getting so hot?",
+        "answer": "The BM1366 chips run hot by design. Ensure your fan is spinning correctly. If temps exceed <strong>75°C</strong>, check your thermal paste application. Many users upgrade to a Noctua fan for better airflow."
+      },
+      {
+        "question": "What specific fan does the Bitaxe use?",
+        "answer": "The standard mounting holes support a <strong>40mm x 10mm (4010)</strong> fan. Crucially, you must use a <strong>5V</strong> fan (like the Noctua NF-A4x10 5V). A standard 12V computer fan will not spin or will spin too slowly to cool the device."
+      }
+    ]
+  },
+  {
+    "category": "Setup & Configuration",
+    "items": [
+      {
+        "question": "How do I find the IP address of my miner?",
+        "answer": "On first boot, the Bitaxe creates a WiFi hotspot named <code>Bitaxe_XXXX</code>. Connect to it, browse to <code>192.168.4.1</code> to configure WiFi. Afterward, check your router's DHCP list or the OLED screen for the new IP."
+      },
+      {
+        "question": "Why can't I see my WiFi network?",
+        "answer": "The ESP32-S3 chip used in the Bitaxe only supports <strong>2.4GHz WiFi</strong>. If your router is set to 5GHz only, the miner will not see it. Ensure you have a 2.4GHz SSID enabled."
+      },
+      {
+        "question": "How do I rotate the screen?",
+        "answer": "If your case mounts the screen upside down, go to the web interface, navigate to <strong>Settings > Display</strong>, and look for the 'Flip Screen' or 'Rotation' toggle. Save and reboot to apply."
+      },
+      {
+        "question": "What Stratum URL should I use for Public Pool?",
+        "answer": "For Public Pool, use the following URL:<br><code>stratum+tcp://public-pool.io:21496</code><br>Use your BTC address as the username."
+      },
+      {
+        "question": "What Stratum URL should I use for CKPool?",
+        "answer": "For solo mining on CKPool, use:<br><code>stratum+tcp://solo.ckpool.org:3333</code><br>Ensure your BTC address is correct in the user field."
+      }
+    ]
+  },
+  {
+    "category": "Mining Terminology & Errors",
+    "items": [
+      {
+        "question": "What is a 'Stale Share'?",
+        "answer": "A stale share is valid work that arrived <strong>too late</strong>. By the time your miner sent the answer to the pool, the network had already found a new block and moved on. This is usually caused by high latency (lag) or a poor WiFi connection."
+      },
+      {
+        "question": "What does 'Rejected' mean?",
+        "answer": "The pool refused your work. This can happen for three reasons:<br>1. <strong>Stale:</strong> It arrived too late.<br>2. <strong>Duplicate:</strong> Your miner sent the same share twice.<br>3. <strong>Low Difficulty/Invalid:</strong> The math was wrong (often caused by overclocking too high or overheating)."
+      },
+      {
+        "question": "What does 'Share Above Target' or 'High Hash' mean?",
+        "answer": "Mining works by finding a hash <em>below</em> a specific target number. If your miner submits a result that is <em>above</em> the target, it failed the difficulty requirement. In simple terms: your miner thought it found a valid share, but the pool checked the math and said, 'Close, but not good enough.' This is often a sign of hardware errors."
+      },
+      {
+        "question": "Why is 'Ping' important?",
+        "answer": "Ping is the time (in milliseconds) it takes for data to travel between your Bitaxe and the pool. <strong>Lower is better.</strong><br>If your ping is high (>100ms), you are more likely to get Stale Shares because your work takes too long to reach the server. If your ping is high, try connecting to a pool server closer to your physical location."
+      },
+      {
+        "question": "What is 'Pool Difficulty' vs 'Network Difficulty'?",
+        "answer": "<strong>Network Difficulty:</strong> The hurdle to find a valid Bitcoin block (Trillions).<br><strong>Pool Difficulty:</strong> A much lower hurdle set by the pool just for <em>you</em>. It exists so the pool can verify your miner is actually working. Meeting the Pool Difficulty earns you 'shares' (proof of work), but only meeting the Network Difficulty earns the Block Reward."
+      }
+    ]
+  },
+
+  {
+    "category": "Troubleshooting",
+    "items": [
+      {
+        "question": "My hashrate is showing 0 GH/s?",
+        "answer": "This is often a voltage or frequency issue. Try lowering the frequency (MHz) or increasing the core voltage slightly in the Settings tab. Verify the fan is plugged in; some firmware stops hashing if 0 RPM is detected."
+      },
+      {
+        "question": "How do I flash the firmware?",
+        "answer": "Flash via the web interface under <strong>System > Firmware Update</strong>. If bricked, hold the 'Boot' button while plugging in USB and use a browser-based ESP-Tool flasher."
+      },
+      {
+        "question": "How do I factory reset my Bitaxe?",
+        "answer": "If you are locked out or the config is corrupted, connect the device to a PC via USB. Use a web-based ESP flasher (like the one on the AxeOS GitHub) and select the option to <strong>'Erase Flash'</strong> before re-installing the firmware. This wipes all settings."
+      },
+      {
+        "question": "What does 'Low Voltage' on the screen mean?",
+        "answer": "This indicates voltage sag. The power reaching the board is dipping below the required threshold. This is usually caused by a low-quality USB cable (too thin/long) or a power supply that cannot sustain 4A output."
+      }
+    ]
+  },
+  {
+    "category": "Mining Pools & Strategy",
+    "items": [
+      {
+        "question": "Should I Solo Mine or Pool Mine?",
+        "answer": "<strong>Solo Mining:</strong> This is a lottery. You earn nothing unless you find a block, but if you do, you keep the entire reward (3.125 BTC + fees). With a single Bitaxe, the odds are 1 in millions, but it is possible.<br><br><strong>Pool Mining:</strong> You join a team. You earn a tiny amount of Bitcoin every day based on your work. However, many large pools have high 'withdrawal thresholds' (e.g., 0.005 BTC) that a single Bitaxe might take years to reach."
+      },
+      {
+        "question": "Which Solo Pool is better: CKPool or Public Pool?",
+        "answer": "Both are excellent choices.<br><strong>CKPool:</strong> The original solo pool. Extremely reliable, but charges a 2% fee if you find a block.<br><strong>Public Pool:</strong> Open-source and community-run. It charges <strong>0% fees</strong>, meaning you keep the full reward. It also allows you to self-host your own node."
+      },
+      {
+        "question": "Can I use nicehash or standard pools like F2Pool?",
+        "answer": "Technically yes, but <strong>beware of the payout limit</strong>. A Bitaxe earns only a few hundred satoshis per day. If a pool requires 0.005 BTC to withdraw, your funds will be stuck there for years. If you want consistent payouts, look for pools that support <strong>Lightning Network payouts</strong> (like Braiins Pool or NiceHash) which allow withdrawing very small amounts."
+      },
+      {
+        "question": "Where can I see a list of all mining pools?",
+        "answer": "The best resource for checking pool hashrates, fees, and server locations is <a href='https://miningpoolstats.stream/bitcoin' target='_blank'>MiningPoolStats.stream</a>."
+      }
+    ]
+  },
+  {
+    "category": "Difficulty & Shares",
+    "items": [
+      {
+        "question": "What is difficulty?",
+        "answer": "<p> Mining difficulty acts as a self-regulating thermostat. It adjusts the required \"target\" hash to ensure blocks are found at a set interval (e.g., 10 mins for Bitcoin), regardless of total network power. As more miners join, the target shrinks, making valid hashes harder to find.</p>\n\n"
+      },
+      {
+        "question": "What are shares?",
+        "answer": "In solo mining with a Bitaxe, shares are essentially just \"heartbeats.\" Your miner sends them to the node to prove it is online and working, but unlike a pool, these shares pay zero.\n<br><br>\nThink of it like buying lottery tickets. You are submitting millions of tickets (shares). Most are just proof you bought a ticket, but you only get paid if one single ticket hits the specific jackpot number (the Block Reward). It is an all-or-nothing game.\n<br><br>\nTo calculate the expected time to find a block, you take the Current Mining Difficulty, multiply it by two raised to the power of thirty-two, and then divide that result by your Bitaxe's Hashrate."
+      },
+      {
+        "question": "My miner is showing I hit a block, but I'm not seeing it on the block explorer?",
+        "answer": "Unless your \"best share\" shows a share higher than the current difficulty of the block chain you are mining, then this is a false positive. There is no ifs of buts about it. If you are on a pool that is pay-per-share, pay-per-last-N-shares, etc. and you or someone in the pool hit a block, you will be paid out according to the payment scheme of the pool and share the payout with other members. "
+      },
+      {
+        "question": "What is 'Best Share'?",
+        "answer": "Best Share is the single most difficult hash your miner has generated since it was last rebooted. In solo mining, unless your Best Share exceeds the <strong>Network Difficulty</strong> (which is in the trillions), you have not found a block. Seeing a high number here is nice, but it does not earn rewards unless it beats the network target."
+      }
+    ]
+  },
+  {
+    "category": "Altcoins & Merge Mining",
+    "items": [
+      {
+        "question": "Can I mine coins other than Bitcoin?",
+        "answer": "Yes. The Bitaxe (BM1366 chip) can mine any cryptocurrency that uses the **SHA-256** algorithm. Popular options include **Bitcoin Cash (BCH)**, **eCash (XEC)**, **DigiByte (DGB-SHA)**, and **Peercoin (PPC)**."
+      },
+      {
+        "question": "Can I mine Litecoin (LTC) or Dogecoin?",
+        "answer": "<strong>No.</strong> Litecoin and Dogecoin use the <strong>Scrypt</strong> algorithm. Your Bitaxe is a specialized ASIC designed <em>only</em> for SHA-256. It physically cannot perform the math required for Scrypt, X11, or other algorithms."
+      },
+      {
+        "question": "What Stratum URL should I use for Bitcoin Cash (BCH)?",
+        "answer": "You can mine BCH on pools like ViaBTC. Use the following settings:<br>URL: <code>stratum+tcp://bch.viabtc.io:3333</code><br>User: <code>YourViaBTCUsername.WorkerName</code><br>Password: <code>123</code>"
+      },
+      {
+        "question": "What Stratum URL should I use for eCash (XEC)?",
+        "answer": "For eCash, a popular choice is also ViaBTC or Mining-Dutch.<br>URL: <code>stratum+tcp://mining.viabtc.io:3014</code><br>User: <code>YourViaBTCUsername.WorkerName</code>"
+      },
+      {
+        "question": "What is 'Merge Mining' and how do I do it?",
+        "answer": "Merge mining allows you to mine Bitcoin (the parent chain) and other SHA-256 coins (like Namecoin, Elastos, or Syscoin) simultaneously without losing any hashrate. <br><br><strong>Note:</strong> Standard solo pools (like CKPool) usually <em>do not</em> pay out these extra coins. To earn them, you must use a pool that specifically supports merged mining payouts, such as <strong>ViaBTC</strong> or <strong>F2Pool</strong>."
+      },
+      {
+        "question": "How do I mine DigiByte (DGB)?",
+        "answer": "DigiByte allows mining on five different algorithms, so you must specifically choose a <strong>SHA-256 pool</strong>. A good option is **Mining-Dutch**:<br>URL: <code>stratum+tcp://sha256.mining-dutch.nl:3333</code><br>User: <code>YourUsername</code><br><em>(Note: You may need to specify the coin in the password field depending on the pool configuration, e.g., c=DGB).</em>"
+      }
+    ]
+  },
+  {
+    "category": "Monitoring & Stats",
+    "items": [
+      {
+        "question": "Is there a self-hosted dashboard for Bitaxe?",
+        "answer": "Yes. <strong>OpenAxe</strong> is a lightweight, open-source dashboard that you can host yourself to track temperature, hashrate, and power usage across multiple miners.<br><a href='https://github.com/OpenAxeProject/openaxe' target='_blank'>View OpenAxe on GitHub</a>"
+      },
+      {
+        "question": "Are there any mobile apps for monitoring?",
+        "answer": "Yes. <strong>HashWatcher</strong> is a mobile app (iOS/Android) that allows you to monitor your Bitaxe stats, hashrate, and profitability on the go.<br><a href='https://hashwatcher.app/' target='_blank'>Download HashWatcher</a>"
+      },
+      {
+        "question": "How can I better view my Solo CKPool stats?",
+        "answer": "While the official CKPool site works, the <strong>Light CKPool Stats Viewer</strong> offers a much cleaner interface to track your worker's shares, luck, and connectivity in real-time.<br><a href='https://github.com/hantiiii/light-ckpool-solo-stats-viewer' target='_blank'>View on GitHub</a>"
+      }
+    ]
+  }, 
+ {
+    "category": "Community & Support",
+    "items": [
+      {
+        "question": "Is there an official Reddit community?",
+        "answer": "Yes. The most active subreddit is <a href='https://www.reddit.com/r/BitAxe/' target='_blank'>r/BitAxe</a>. It is a great place to show off builds, ask for help, and see new hardware announcements."
+      },
+      {
+        "question": "Where do the developers hang out? (Discord)",
+        "answer": "The core development happens in the <strong>Open Source Miners United (OSMU)</strong> Discord server. This is the best place for real-time troubleshooting and talking to the creators of AxeOS and the hardware itself.<br><a href='https://discord.gg/osm' target='_blank'>Join the OSMU Discord</a>"
+      },
+      {
+        "question": "Are there Facebook groups for Bitaxe?",
+        "answer": "Yes, there are groups such as 'Bitaxe Users' or 'Home Bitcoin Mining.' <br><strong>Warning:</strong> Facebook groups are frequently targeted by scammers selling fake hardware. We highly recommend using the Discord or Reddit communities for verified buy/sell listings and technical support."
+      },
+      {
+        "question": "Where is the official documentation?",
+        "answer": "The official documentation, including sourcing guides and assembly instructions, can be found at <a href='https://bitaxe.org' target='_blank'>Bitaxe.org</a> and the <a href='https://osmu.wiki' target='_blank'>OSMU Wiki</a>."
+      }
+    ]
+  },
+{
+    "category": "Where to Buy",
+    "items": [
+      {
+        "question": "Where can I buy a Bitaxe besides AliExpress?",
+        "answer": "The following vendors are US-based and known within the community for selling Bitaxe hardware, kits, and accessories:<br><ul><li><a href='https://soloblock.io' target='_blank'>SoloBlock.io</a></li><li><a href='https://www.solosatoshi.com' target='_blank'>SoloSatoshi.com</a></li><li><a href='https://shop.powermining.io/' target='_blank'>PowerMining.io</a></li><li><a href='https://bitcoinmerch.com/collections/bitaxe-miners' target='_blank'>BitcoinMerch.com</a></li></ul>"
+      },
+      {
+        "question": "Should I buy a DIY kit or a pre-assembled unit?",
+        "answer": "<strong>Pre-Assembled:</strong> Best for most users. It arrives tested and ready to mine. You just plug in power and WiFi.<br><strong>DIY Kit:</strong> Only recommended if you are experienced with <strong>SMD soldering</strong>. The BM1366 chip and small capacitors can be difficult to solder by hand without a reflow station or hot plate."
+      },
+      {
+        "question": "Do these vendors accept Bitcoin?",
+        "answer": "Yes, most dedicated mining shops (like SoloSatoshi and BitcoinMerch) natively accept Bitcoin (on-chain and Lightning) as payment. Check the checkout options on each site."
+      }
+    ]
+  }
+
+]
