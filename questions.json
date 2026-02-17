@@ -29,7 +29,7 @@
       },
       {
         "question": "Why can't I see my WiFi network?",
-        "answer": "The ESP32-S3 chip used in the Bitaxe only supports <strong>2.4GHz WiFi</strong>. If your router is set to 5GHz only, the miner will not see it. Ensure you have a 2.4GHz SSID enabled."
+        "answer": "The ESP32-S3 chip used in the Bitaxe only supports <strong>2.4GHz WiFi</strong>. If your router is set to 5GHz or better only, the miner will not see it. Ensure you have a 2.4GHz SSID enabled."
       },
       {
         "question": "How do I rotate the screen?",
@@ -89,6 +89,18 @@
       {
         "question": "What does 'Low Voltage' on the screen mean?",
         "answer": "This indicates voltage sag. The power reaching the board is dipping below the required threshold. This is usually caused by a low-quality USB cable (too thin/long) or a power supply that cannot sustain 4A output."
+      },
+      {
+        "question": "Why is my miner crashing after a few minutes?",
+        "answer": "This is often due to overheating. Check that the fan is working and that the heatsink is properly seated with good thermal paste. If the ambient temperature is very high, consider improving airflow or moving the miner to a cooler location."
+      },
+      {
+        "question": "My miner is showing 'No WiFi Connection' but I am sure the password is correct?",
+        "answer": "Double-check that your router is broadcasting a 2.4GHz network and that the SSID is visible. The ESP32-S3 does not support 5GHz WiFi. If your router has separate SSIDs for 2.4GHz and 5GHz, make sure you are connecting to the correct one."
+      },
+      {
+        "question": "I am getting 'Invalid Stratum URL' error, what should I do?",
+        "answer": "Ensure you are using the correct format for the Stratum URL. It should start with <code>stratum+tcp://</code> followed by the pool address and port (e.g., <code>stratum+tcp://solo.ckpool.org:3333</code>). Also, verify that your internet connection is stable and that the pool server is not down."
       }
     ]
   },
@@ -147,19 +159,19 @@
       },
       {
         "question": "What Stratum URL should I use for Bitcoin Cash (BCH)?",
-        "answer": "You can mine BCH on pools like ViaBTC. Use the following settings:<br>URL: <code>stratum+tcp://bch.viabtc.io:3333</code><br>User: <code>YourViaBTCUsername.WorkerName</code><br>Password: <code>123</code>"
+        "answer": "You can mine BCH on pools like SoloPool. Use the following settings:<br>URL: <code>stratum+tcp://eu2.solopool.org:8002</code><br>User: <code>Wallet.WorkerName</code><br>Password: <code>x</code>"
       },
       {
         "question": "What Stratum URL should I use for eCash (XEC)?",
-        "answer": "For eCash, a popular choice is also ViaBTC or Mining-Dutch.<br>URL: <code>stratum+tcp://mining.viabtc.io:3014</code><br>User: <code>YourViaBTCUsername.WorkerName</code>"
-      },
-      {
-        "question": "What is 'Merge Mining' and how do I do it?",
-        "answer": "Merge mining allows you to mine Bitcoin (the parent chain) and other SHA-256 coins (like Namecoin, Elastos, or Syscoin) simultaneously without losing any hashrate. <br><br><strong>Note:</strong> Standard solo pools (like CKPool) usually <em>do not</em> pay out these extra coins. To earn them, you must use a pool that specifically supports merged mining payouts, such as <strong>ViaBTC</strong> or <strong>F2Pool</strong>."
+        "answer": "For eCash, a popular choice is also SoloPool or Mining-Dutch.<br>URL: <code>stratum+tcp://eu2.solopool.org:8013</code><br>User: <code>Wallet.WorkerName</code><br>Password: <code>x</code>"
       },
       {
         "question": "How do I mine DigiByte (DGB)?",
         "answer": "DigiByte allows mining on five different algorithms, so you must specifically choose a <strong>SHA-256 pool</strong>. A good option is **Mining-Dutch**:<br>URL: <code>stratum+tcp://sha256.mining-dutch.nl:3333</code><br>User: <code>YourUsername</code><br><em>(Note: You may need to specify the coin in the password field depending on the pool configuration, e.g., c=DGB).</em>"
+      },
+      {
+        "question": "What is 'Merge Mining' and how do I do it?",
+        "answer": "Merge mining allows you to mine Bitcoin (the parent chain) and other SHA-256 coins (like Namecoin, Peercoin, or Syscoin) simultaneously without losing any hashrate. <br><br><strong>Note:</strong> Standard solo pools (like CKPool) usually <em>do not</em> pay out these extra coins as they are not configured to merge mine. To earn them, you must use a pool that specifically supports merged mining payouts, such as <strong>Mining-Dutch</strong> or <strong>F2Pool</strong>."
       }
     ]
   },
@@ -176,10 +188,35 @@
       },
       {
         "question": "How can I better view my Solo CKPool stats?",
-        "answer": "While the official CKPool site works, the <strong>Light CKPool Stats Viewer</strong> offers a much cleaner interface to track your worker's shares, luck, and connectivity in real-time.<br><a href='https://github.com/hantiiii/light-ckpool-solo-stats-viewer' target='_blank'>View on GitHub</a>"
+        "answer": "While the official CKPool site works, the <strong>Light CKPool Stats Viewer</strong> offers a much cleaner interface to track your worker's shares, luck, and connectivity for self-hosted ckpool's in real-time.<br><a href='https://github.com/hantiiii/light-ckpool-solo-stats-viewer' target='_blank'>View on GitHub</a>"
       }
     ]
   }, 
+ {
+    "category": "Self-hosting Pools & Nodes",
+    "items": [
+      {
+        "question": "What are some pool software options if I want to self-host?",
+        "answer": "While there are full operating systems like Umbrel OS that allow you to run a Bitcoin node and pool, they can be resource-intensive. For a lightweight, minimalist pool focused on solo mining, CKPool is the gold standard. It is open-source, well-documented, and designed for solo miners. You can run it on a Raspberry Pi or any Linux server with minimal setup.<br><a href='https://github.com/golden-guy/ckpool-solo/' target='_blank'>CKPool on GitHub</a>"
+      },
+      {
+        "question": "Do I have to run a full Bitcoin node to use CKPool?",
+        "answer": "No, CKPool does not require a full Bitcoin node. It is a lightweight, self-contained pool software that can be run on any Linux server or Raspberry Pi. It handles all the necessary Bitcoin-related operations internally. This node can be pruned to save space since it does not need to store the entire blockchain."
+      },
+      {
+        "question": "Can I run a different blockchain other than Bitcoin on my own node and pool?",
+        "answer": "Yes, you can run nodes and pools for other SHA-256 coins like Bitcoin Cash, eCash, or DigiByte. However, the setup process will differ based on the coin's specific software and requirements. For example, Bitcoin Cash uses Bitcoin ABC or Bitcoin Unlimited as its node software, while DigiByte has its own node implementation. You will need to research the specific coin you want to mine and follow their documentation for setting up a compatible node and pool."},
+      {
+        "question": "Where can I find guides for setting up my own node and pool?",
+        "answer": "Guides for setting up self-hosted nodes and pools can be found on the official documentation pages of the respective software. For CKPool, you can refer to their GitHub repository which includes setup instructions. For Bitcoin nodes, the Bitcoin Core documentation is a great resource. Additionally, community forums like Reddit's r/BitcoinMining and the OSMU Discord server often have user-generated guides and troubleshooting tips for self-hosting. Soon, we will also be adding a comprehensive guide to the FAQ itself on how to set up a CKPool instance on Linux in a Docker environment for solo mining."
+      },
+      {
+        "question": "Is self-hosting for me?",
+        "answer": "Self-hosting is for everyone! However, it does require some technical knowledge and willingness to troubleshoot. If you are comfortable with Linux command line, setting up a server, and basic networking, then self-hosting can be a rewarding way to have full control over your mining operation. It allows you to mine without relying on third-party pools, lower pings between your miners and the pool(s), and can be more private and secure. However, if you prefer a plug-and-play experience, using a public pool may be more suitable. It also allows for easier monitoring and payouts without needing to manage your own server. Ultimately, the choice depends on your comfort level with technology and how much control you want over your mining setup. "
+      }
+    ]
+  },
+
  {
     "category": "Community & Support",
     "items": [
@@ -198,6 +235,10 @@
       {
         "question": "Where is the official documentation?",
         "answer": "The official documentation, including sourcing guides and assembly instructions, can be found at <a href='https://bitaxe.org' target='_blank'>Bitaxe.org</a> and the <a href='https://osmu.wiki' target='_blank'>OSMU Wiki</a>."
+      },
+      {
+        "question": "Can I update this FAQ with new information?",
+        "answer": "Yes, the FAQ is open source and can be updated by anyone. The source code is available on GitHub at <a href='https://github.com/OpenAxeProject/axeanswers' target='_blank'>OpenAxeProject/axeanswers</a>."
       }
     ]
   },
